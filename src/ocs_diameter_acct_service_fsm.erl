@@ -351,11 +351,7 @@ service_options(Options) ->
 		{'Product-Name', "SigScale OCS"},
 		{'Firmware-Revision', Version},
 		{'Supported-Vendor-Id', [?IANA_PEN_3GPP]},
-		{'Auth-Application-Id', [?RO_APPLICATION_ID, ?Gx_APPLICATION_ID]},
-		{'Vendor-Specific-Application-Id',
-				[#'diameter_base_Vendor-Specific-Application-Id'{
-						'Vendor-Id' = ?IANA_PEN_3GPP,
-						'Auth-Application-Id' = [?Gx_APPLICATION_ID]}]},
+		{'Auth-Application-Id', [?RO_APPLICATION_ID]},
 		{restrict_connections, false},
 		{string_decode, false},
 		{application, [{alias, ?BASE_APPLICATION},
@@ -365,10 +361,6 @@ service_options(Options) ->
 		{application, [{alias, ?RO_APPLICATION},
 				{dictionary, ?RO_APPLICATION_DICT},
 				{module, Module},
-				{request_errors, callback}]},
-		{application, [{alias, ?Gx_APPLICATION},
-				{dictionary, ?Gx_APPLICATION_DICT},
-				{module, ?Gx_APPLICATION_CALLBACK},
 				{request_errors, callback}]}].
 
 -spec transport_options(Options, Address, Port) -> Result
