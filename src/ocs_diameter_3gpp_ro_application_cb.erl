@@ -195,12 +195,8 @@ request(ServiceName, Capabilities, Request) ->
 	request(ServiceName, Capabilities, Request, HostIpAddresses).
 %% @hidden
 request({_, IpAddress, Port} = ServiceName, Capabilities, Request, [H | T]) ->
-	case ocs:find_client(H) of
-		{ok, #client{protocol = diameter}} ->
-			{reply, process_request(IpAddress, Port, Capabilities, Request)};
-		{error, not_found} ->
-			request(ServiceName, Capabilities, Request, T)
-	end;
+	{reply, process_request(IpAddress, Port, Capabilities, Request)}.
+
 request(_, _, _, []) ->
 	{answer_message, ?'DIAMETER_BASE_RESULT-CODE_UNKNOWN_PEER'}.
 
